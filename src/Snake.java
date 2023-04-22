@@ -1,6 +1,6 @@
 public class Snake {
     private int score;
-    private int length;
+    private final int length;
     private String path;
     private int headX;
     private int headY;
@@ -11,9 +11,6 @@ public class Snake {
 
     @Override
     public String toString() {
-        String print = new String();
-        print += "Snake: " + this.hashCode();
-        print += "\n\tLength: " + length;
-        return print;
+        return "Snake: " + this.hashCode() + "\n\tLength: " + length;
     }
 }
