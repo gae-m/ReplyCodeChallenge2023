@@ -37,6 +37,6 @@ public class Map {
         }
     }
 
-    private int normalizeRow(int row){return row % this.rows;}
-    private int normalizeColumn(int column){return column % this.columns;}
+    private int normalizeX(int row){return row % this.rows;}
+    private int normalizeY(int column){return column % this.columns;}
 }

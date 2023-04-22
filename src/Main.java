@@ -17,7 +17,9 @@ public class Main {
         Map map = reader.readMap();
         Snake[] snakes = reader.readSnakes();
 
-        System.out.println(map.toString());
-        for(Snake s: snakes) System.out.println(s.toString());
+        //System.out.println(map);
+        //for(Snake s: snakes) System.out.println(s);
+
+
     }
 }
