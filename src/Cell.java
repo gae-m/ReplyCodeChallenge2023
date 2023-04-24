@@ -1,4 +1,4 @@
-public class Cell {
+public class Cell implements Comparable<Cell>{
     private final int x;
     private final int y;
     private final int score;
@@ -21,6 +21,12 @@ public class Cell {
     public String toString() {
         if(isWormhole) return "*";
         else return Integer.toString(score);
+    }
+
+    @Override
+    public int compareTo(Cell b) {
+        //sort in descending order
+        return b.getScore()-this.score;
     }
 
     public boolean isOccupied() {

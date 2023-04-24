@@ -28,7 +28,7 @@ public class CustomInputReader extends InputReader{
         }
         return null;
     }
-    public Snake[] readSnakes() {
+    public Snake[] readSnakes(Map map) {
         try {
             Scanner scanner = getScanner();
             int nSnake,tmp = 0;
@@ -37,8 +37,10 @@ public class CustomInputReader extends InputReader{
             nSnake = Integer.parseInt(scanner.next());
             Snake[] snakes = new Snake[nSnake];
 
-            for(int i : readIntArray(nSnake,scanner)){
-                snakes[tmp++] = new Snake(i);
+            int id = 0;
+            for(int length : readIntArray(nSnake,scanner)){
+                snakes[tmp++] = new Snake(id,length,map);
+                id++;
             }
 
             scanner.close();

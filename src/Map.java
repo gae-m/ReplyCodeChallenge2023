@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Map {
     private final int rows;
     private final int columns;
@@ -9,6 +12,57 @@ public class Map {
         this.field = new Cell[rows][columns];
     }
 
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public Cell getInitialCell(){
+        //placeholder: random cell
+        Cell res;
+        do{
+            res = field[ThreadLocalRandom.current().nextInt(this.rows)]
+                    [ThreadLocalRandom.current().nextInt(this.columns)];
+        }while(res.isWormhole() || res.isOccupied());
+        return res;
+    }
+
+    public Cell getCell(int x, int y){
+        x = normalizeX(x);
+        y = normalizeY(y);
+        return field[y][x];
+    }
+
+    public int normalizeX(int x){
+        while(x < 0) x += columns;
+        return x % columns;
+    }
+
+    public int normalizeY(int y){
+        while(y < 0) y += rows;
+        return y % rows;
+    }
+
+    public ArrayList<Cell> getAvailableNeighbours(Cell src){
+        ArrayList<Cell> availableNeighbours = new ArrayList<>();
+        //right cell
+        Cell x = getCell(src.getX() + 1,src.getY());
+        if(!x.isOccupied()) availableNeighbours.add(x);
+        //left cell
+        x = getCell(src.getX()-1,src.getY());
+        if(!x.isOccupied()) availableNeighbours.add(x);
+        //up cell
+        x = getCell(src.getX(),src.getY()+1);
+        if(!x.isOccupied()) availableNeighbours.add(x);
+        //down cell
+        x = getCell(src.getX(),src.getY()-1);
+        if(!x.isOccupied()) availableNeighbours.add(x);
+
+        return availableNeighbours;
+    }
     @Override
     public String toString() {
         String print = new String();
@@ -31,12 +85,10 @@ public class Map {
                     else{
                         s = Integer.parseInt(stringField[i][j]);
                     }
-                    this.field[i][j] = new Cell(i,j,s,stringField[i][j].equals("*"));
+                    this.field[i][j] = new Cell(j,i,s,stringField[i][j].equals("*"));
                 }
             }
         }
     }
 
-    private int normalizeX(int row){return row % this.rows;}
-    private int normalizeY(int column){return column % this.columns;}
 }
