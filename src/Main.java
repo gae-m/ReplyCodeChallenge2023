@@ -11,12 +11,12 @@ public class Main {
 
     private static final String[] fileNames = {
             "00-example.txt",
-            "01-chilling-cat.txt",
-            "02-swarming-ant.txt",
-            "03-input-anti-greedy.txt",
-            "04-input-low-points.txt",
-            "05-input-opposite-points-hole.txt",
-            "06-input-reply-running-man.txt"
+//            "01-chilling-cat.txt",
+//            "02-swarming-ant.txt",
+//            "03-input-anti-greedy.txt",
+//            "04-input-low-points.txt",
+//            "05-input-opposite-points-hole.txt",
+//            "06-input-reply-running-man.txt"
     };
     public static void main(String[] args) {
         CustomInputReader reader;
@@ -35,6 +35,8 @@ public class Main {
                 //System.out.println(s);
                 totScore += s.getScore();
             }
+
+            System.out.println(map.getWormholeList());
             System.out.println(fileName+":\t"+totScore);
 
             writeOutput(snakes,fileName);

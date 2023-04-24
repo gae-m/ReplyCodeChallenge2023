@@ -2,14 +2,18 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Map {
+    private final static int WORMHOLE_RANK_RANGE = 2;
     private final int rows;
     private final int columns;
     private final Cell[][] field;
+
+    private WormholeList wormholeList;
 
     public Map(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.field = new Cell[rows][columns];
+        this.wormholeList = new WormholeList();
     }
 
     public int getRows() {
@@ -18,6 +22,10 @@ public class Map {
 
     public int getColumns() {
         return columns;
+    }
+
+    public WormholeList getWormholeList() {
+        return wormholeList;
     }
 
     public Cell getInitialCell(){
@@ -65,7 +73,7 @@ public class Map {
     }
     @Override
     public String toString() {
-        String print = new String();
+        String print = "";
         for(Cell[] row : field) {
             for (Cell x : row)
                 print += x + " ";
@@ -76,19 +84,66 @@ public class Map {
 
     public void setField(String[][] stringField){
         if(stringField.length == this.rows && stringField[0].length == this.columns){
-            int s;
             for(int i = 0; i < this.rows; i++){
                 for(int j = 0; j < this.columns; j++){
                     if(stringField[i][j].equals("*")){
-                        s = 0;
+                        this.field[i][j] = new Cell(j,i,0,true);
+                        wormholeList.add(this.field[i][j]);
                     }
                     else{
-                        s = Integer.parseInt(stringField[i][j]);
+                        this.field[i][j] = new Cell(j,i,Integer.parseInt(stringField[i][j]),false);
                     }
-                    this.field[i][j] = new Cell(j,i,s,stringField[i][j].equals("*"));
                 }
             }
+            initializeWormholeList();
         }
     }
 
+    private void initializeWormholeList(){
+        WormholeList newList = new WormholeList();
+        for(Cell x : wormholeList){
+            this.updateWormholeScore(x);
+            newList.add(x);
+        }
+        this.wormholeList = newList;
+    }
+
+    private void updateWormholeScore(Cell wormhole){
+        if(wormhole.isWormhole()){
+            int score = 0;
+            ArrayList<Couple> indexCouples = new ArrayList<>(2*(WORMHOLE_RANK_RANGE+1)*WORMHOLE_RANK_RANGE);
+            for(int k = 0; k < WORMHOLE_RANK_RANGE; k++){
+                int range = WORMHOLE_RANK_RANGE - k;
+                for(int i = 0; i <= range; i++){
+                    int j = range - i;
+                    indexCouples.add(new Couple(i,j));
+                    if( i != 0) indexCouples.add(new Couple(-i,j));
+                    if(i != 0 && j != 0) indexCouples.add(new Couple(-i,-j));
+                    if(j != 0) indexCouples.add(new Couple(i,-j));
+                }
+            }
+
+            for(Couple index: indexCouples){
+                Cell x = getCell(wormhole.getX()+ index.j, wormhole.getY()+index.i);
+                if(!x.isOccupied() && !x.isWormhole()) score += x.getScore();
+            }
+            wormhole.setScore(score);
+        }
+    }
+
+}
+
+class Couple{
+    int i;
+    int j;
+
+    public Couple(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + i + "," + j + ")";
+    }
 }

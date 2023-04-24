@@ -1,7 +1,7 @@
 public class Cell implements Comparable<Cell>{
     private final int x;
     private final int y;
-    private final int score;
+    private int score;
     private boolean isOccupied = false;
     private final boolean isWormhole;
 
@@ -27,6 +27,10 @@ public class Cell implements Comparable<Cell>{
     public int compareTo(Cell b) {
         //sort in descending order
         return b.getScore()-this.score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public boolean isOccupied() {
