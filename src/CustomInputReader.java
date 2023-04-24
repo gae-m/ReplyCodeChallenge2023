@@ -18,25 +18,7 @@ public class CustomInputReader extends InputReader{
             scanner.nextLine();
             scanner.nextLine();
 
-            String[][] stringMatrix = readStringMatrix(rows, columns, scanner);
-            char[][] vacationMatrix = new char[rows][columns];
-            int[][] scoreMatrix = new int[rows][columns];
-
-            for(int i = 0; i < rows; i++){
-                for(int j = 0; j < columns; j++){
-                    if(stringMatrix[i][j].equals("*")) vacationMatrix[i][j] = '*';  // * -> wormhole
-                    else vacationMatrix[i][j] = '0';    // 0 -> free cell
-                }
-            }
-            for(int i = 0; i < rows; i++){
-                for(int j = 0; j < columns; j++){
-                    if(stringMatrix[i][j].equals("*")) scoreMatrix[i][j] = 0;
-                    else scoreMatrix[i][j] = Integer.parseInt(stringMatrix[i][j]);
-                }
-            }
-
-            map.setVacationMap(vacationMatrix);
-            map.setScoreMap(scoreMatrix);
+            map.setField( readStringMatrix(rows, columns, scanner) );
 
             scanner.close();
             return map;
@@ -46,7 +28,7 @@ public class CustomInputReader extends InputReader{
         }
         return null;
     }
-    public Snake[] readSnakes() {
+    public Snake[] readSnakes(Map map) {
         try {
             Scanner scanner = getScanner();
             int nSnake,tmp = 0;
@@ -55,8 +37,10 @@ public class CustomInputReader extends InputReader{
             nSnake = Integer.parseInt(scanner.next());
             Snake[] snakes = new Snake[nSnake];
 
-            for(int i : readIntArray(nSnake,scanner)){
-                snakes[tmp++] = new Snake(i);
+            int id = 0;
+            for(int length : readIntArray(nSnake,scanner)){
+                snakes[tmp++] = new Snake(id,length,map);
+                id++;
             }
 
             scanner.close();
