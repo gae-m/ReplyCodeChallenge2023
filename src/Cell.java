@@ -3,24 +3,16 @@ public class Cell implements Comparable<Cell>{
     private final int y;
     private int score;
     private boolean isOccupied = false;
-    private final boolean isWormhole;
 
-    public Cell(int x, int y, int score, boolean isWormhole) {
+    public Cell(int x, int y, int score) {
         this.x = x;
         this.y = y;
-        this.isWormhole = isWormhole;
-        if(isWormhole){
-            this.score = 0;
-        }
-        else{
-            this.score = score;
-        }
+        this.score = score;
     }
 
     @Override
     public String toString() {
-        if(isWormhole) return "*";
-        else return Integer.toString(score);
+        return Integer.toString(score);
     }
 
     @Override
@@ -54,6 +46,6 @@ public class Cell implements Comparable<Cell>{
     }
 
     public boolean isWormhole() {
-        return isWormhole;
+        return this.getClass() == Wormhole.class;
     }
 }

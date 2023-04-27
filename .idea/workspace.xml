@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96f25836-b0d5-4fa9-9874-a12c7f923caf" name="Changes" comment="-Corrected bug in function getPath()&#10;-Added debugging features&#10;-Implemented output writing">
-      <change afterPath="$PROJECT_DIR$/doc/Reply+Code+Challenge+2023+-+Standard+Edition+-+Problem+Statement-1.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WormholeList.java" afterDir="false" />
+    <list default="true" id="96f25836-b0d5-4fa9-9874-a12c7f923caf" name="Changes" comment="Implemented Wormhole like a class that extends Cell">
+      <change afterPath="$PROJECT_DIR$/src/Wormhole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WormholeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WormholeList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +38,19 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="87fa88e3-525f-4920-8b5c-523290c3367a" />
+        <option name="url" value="https://github.com/gae-m/ReplyCodeChallenge2023.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -95,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682184745481</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="-Implemented WormholeList">
+      <created>1682375526956</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682375526956</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -136,6 +155,8 @@
     <MESSAGE value="First commit:&#10;1) first sketch of all classes&#10;2) input reader implemented" />
     <MESSAGE value="Version 2:&#10;- Implemented class &quot;Cell&quot;&#10;- Map is a single matrix of Cell" />
     <MESSAGE value="Body of snakes is a LinkedList and not a String" />
-    <option name="LAST_COMMIT_MESSAGE" value="Body of snakes is a LinkedList and not a String" />
+    <MESSAGE value="-Implemented WormholeList" />
+    <MESSAGE value="Implemented Wormhole like a class that extends Cell" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented Wormhole like a class that extends Cell" />
   </component>
 </project>

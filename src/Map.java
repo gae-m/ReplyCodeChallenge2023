@@ -87,28 +87,29 @@ public class Map {
             for(int i = 0; i < this.rows; i++){
                 for(int j = 0; j < this.columns; j++){
                     if(stringField[i][j].equals("*")){
-                        this.field[i][j] = new Cell(j,i,0,true);
-                        wormholeList.add(this.field[i][j]);
+                        Wormhole w = new Wormhole(j,i,0);
+                        this.field[i][j] = w;
+                        wormholeList.add(w);
                     }
                     else{
-                        this.field[i][j] = new Cell(j,i,Integer.parseInt(stringField[i][j]),false);
+                        this.field[i][j] = new Cell(j,i,Integer.parseInt(stringField[i][j]));
                     }
                 }
             }
-            initializeWormholeList();
+            updateWormholeList();
         }
     }
 
-    private void initializeWormholeList(){
+    private void updateWormholeList(){
         WormholeList newList = new WormholeList();
-        for(Cell x : wormholeList){
-            this.updateWormholeScore(x);
-            newList.add(x);
+        for(Wormhole w : wormholeList){
+            this.updateWormholeScore(w);
+            newList.add(w);
         }
         this.wormholeList = newList;
     }
 
-    private void updateWormholeScore(Cell wormhole){
+    private void updateWormholeScore(Wormhole wormhole){
         if(wormhole.isWormhole()){
             int score = 0;
             ArrayList<Couple> indexCouples = new ArrayList<>(2*(WORMHOLE_RANK_RANGE+1)*WORMHOLE_RANK_RANGE);
@@ -124,22 +125,30 @@ public class Map {
             }
 
             for(Couple index: indexCouples){
-                Cell x = getCell(wormhole.getX()+ index.j, wormhole.getY()+index.i);
+                Cell x = getCell(wormhole.getX()+ index.getJ(), wormhole.getY()+index.getI());
                 if(!x.isOccupied() && !x.isWormhole()) score += x.getScore();
             }
-            wormhole.setScore(score);
+            wormhole.setRank(score);
         }
     }
 
 }
 
 class Couple{
-    int i;
-    int j;
+    private final int i;
+    private final int j;
 
     public Couple(int i, int j) {
         this.i = i;
         this.j = j;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    public int getJ() {
+        return j;
     }
 
     @Override
