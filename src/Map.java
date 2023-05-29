@@ -1,19 +1,17 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Map {
-    private final static int WORMHOLE_RANK_RANGE = 2;
     private final int rows;
     private final int columns;
     private final Cell[][] field;
-
     private WormholeList wormholeList;
 
     public Map(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.field = new Cell[rows][columns];
-        this.wormholeList = new WormholeList();
     }
 
     public int getRows() {
@@ -83,76 +81,23 @@ public class Map {
     }
 
     public void setField(String[][] stringField){
+        LinkedList<Wormhole> wormholes = new LinkedList<>();
         if(stringField.length == this.rows && stringField[0].length == this.columns){
             for(int i = 0; i < this.rows; i++){
                 for(int j = 0; j < this.columns; j++){
                     if(stringField[i][j].equals("*")){
-                        Wormhole w = new Wormhole(j,i,0);
+                        Wormhole w = new Wormhole(j,i,this);
                         this.field[i][j] = w;
-                        wormholeList.add(w);
+                        wormholes.add(w);
                     }
                     else{
                         this.field[i][j] = new Cell(j,i,Integer.parseInt(stringField[i][j]));
                     }
                 }
             }
-            updateWormholeList();
+            this.wormholeList = new WormholeList(wormholes);
         }
     }
-
-    private void updateWormholeList(){
-        WormholeList newList = new WormholeList();
-        for(Wormhole w : wormholeList){
-            this.updateWormholeScore(w);
-            newList.add(w);
-        }
-        this.wormholeList = newList;
-    }
-
-    private void updateWormholeScore(Wormhole wormhole){
-        if(wormhole.isWormhole()){
-            int score = 0;
-            ArrayList<Couple> indexCouples = new ArrayList<>(2*(WORMHOLE_RANK_RANGE+1)*WORMHOLE_RANK_RANGE);
-            for(int k = 0; k < WORMHOLE_RANK_RANGE; k++){
-                int range = WORMHOLE_RANK_RANGE - k;
-                for(int i = 0; i <= range; i++){
-                    int j = range - i;
-                    indexCouples.add(new Couple(i,j));
-                    if( i != 0) indexCouples.add(new Couple(-i,j));
-                    if(i != 0 && j != 0) indexCouples.add(new Couple(-i,-j));
-                    if(j != 0) indexCouples.add(new Couple(i,-j));
-                }
-            }
-
-            for(Couple index: indexCouples){
-                Cell x = getCell(wormhole.getX()+ index.getJ(), wormhole.getY()+index.getI());
-                if(!x.isOccupied() && !x.isWormhole()) score += x.getScore();
-            }
-            wormhole.setRank(score);
-        }
-    }
-
 }
 
-class Couple{
-    private final int i;
-    private final int j;
 
-    public Couple(int i, int j) {
-        this.i = i;
-        this.j = j;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public int getJ() {
-        return j;
-    }
-
-    @Override
-    public String toString() {
-        return "(" + i + "," + j + ")";
-    }
-}

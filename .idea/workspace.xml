@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96f25836-b0d5-4fa9-9874-a12c7f923caf" name="Changes" comment="Implemented Wormhole like a class that extends Cell">
-      <change afterPath="$PROJECT_DIR$/src/Wormhole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Wormhole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Wormhole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WormholeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WormholeList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682375526956</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implemented Wormhole like a class that extends Cell">
+      <created>1682627596132</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682627596132</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

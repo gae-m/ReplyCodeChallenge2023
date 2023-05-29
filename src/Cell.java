@@ -1,13 +1,27 @@
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class Cell implements Comparable<Cell>{
     private final int x;
     private final int y;
-    private int score;
+    private final int score;
     private boolean isOccupied = false;
+
+    protected PropertyChangeSupport pcs;
 
     public Cell(int x, int y, int score) {
         this.x = x;
         this.y = y;
         this.score = score;
+        pcs = new PropertyChangeSupport(this);
+    }
+
+    public void addListener(PropertyChangeListener pcl){
+        pcs.addPropertyChangeListener(pcl);
+    }
+
+    public void removeListener(PropertyChangeListener pcl){
+        pcs.removePropertyChangeListener(pcl);
     }
 
     @Override
@@ -21,16 +35,18 @@ public class Cell implements Comparable<Cell>{
         return b.getScore()-this.score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+//    public void setScore(int score) {
+//        this.score = score;
+//    }
 
     public boolean isOccupied() {
         return isOccupied;
     }
 
     public void setOccupied(boolean occupied) {
+        boolean oldValue = isOccupied;
         isOccupied = occupied;
+        pcs.firePropertyChange("Occupied",oldValue,occupied);
     }
 
     public int getX() {
@@ -46,6 +62,6 @@ public class Cell implements Comparable<Cell>{
     }
 
     public boolean isWormhole() {
-        return this.getClass() == Wormhole.class;
+        return this instanceof Wormhole;
     }
 }
